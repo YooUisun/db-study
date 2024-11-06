@@ -55,3 +55,6 @@ FROM student
 WHERE deptno1 = 101;
 
 
+SELECT SUBSTR(TEL, 1, INSTR(TEL, ')') -1) AS area_code
+FROM emp2;
+
