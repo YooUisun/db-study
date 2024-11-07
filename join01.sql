@@ -113,3 +113,11 @@ from gift;
 select c.gname, c.point, g.gname
 from customer c, gift g
 where c.point between g.g_start and g.g_end;
+
+
+--사번, 내 이름, 내 상사의 사번, 상사의 이름
+select e1.empno, e1.ename, e1.mgr, e2.empno, e2.ename
+from emp e1, emp e2
+where e1.mgr = e2.empno;
+
+
