@@ -1,10 +1,5 @@
--- view 
+-- 서브쿼리 연습
 
-select *
-from student;
-
-select *
-from department;
 
 select 
         s.name STUD_NAME,
@@ -15,6 +10,7 @@ where s.deptno1 = d.deptno
 And s.deptno1 = (select deptno1
                     from student
                     where name = 'Anthony Hopkins');
+
 
 select deptno1
 from student
