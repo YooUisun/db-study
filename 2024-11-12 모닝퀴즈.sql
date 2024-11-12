@@ -55,4 +55,6 @@ WHERE MENU_NAME = '베트남쌀국수';
 DELETE FROM T_MENU_12 
 WHERE MENU_ID = 5;  
 
+SELECT *
+FROM T_MENU_12;
 commit;
