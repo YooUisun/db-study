@@ -1,5 +1,4 @@
-select *
-from TABLE_COLC;
+--quiz
 
 CREATE TABLE TABLE_DATA_1
 (
@@ -19,40 +18,49 @@ std_date DATE,
 CHECK_DATA1 VARCHAR2(6),
 CHECK_DATA2 VARCHAR2(6)
 );
+
 INSERT INTO TABLE_DATA_1 VALUES (1, '2023-04-01');
 INSERT INTO TABLE_DATA_1 VALUES (2, '2023-04-02');
 INSERT INTO TABLE_DATA_1 VALUES (3, '2023-04-03');
 INSERT INTO TABLE_DATA_1 VALUES (4, '2023-04-04');
+
+INSERT INTO TABLE_DATA_1 VALUES (5, '2023-04-05');
 
 INSERT INTO TABLE_DATA_2 VALUES (1, '2023-04-02');
 INSERT INTO TABLE_DATA_2 VALUES (2, '2023-04-03');
 INSERT INTO TABLE_DATA_2 VALUES (3, '2023-04-04');
 INSERT INTO TABLE_DATA_2 VALUES (4, '2023-04-05');
 
+INSERT INTO TABLE_DATA_2 VALUES (5, '2023-04-06');
+
+각 업체별로 TABLE_COLC에 취합(병합) 하는 쿼리를 작성하세요.
+작성 후 A업체와 B업체의 수신 여부가 취합되야 합니다.
+
 select *
-from TABLE_COLC
-order by std_date;
+from TABLE_DATA_1;
 
 select *
 from TABLE_DATA_2;
---------------------------------------------------------
---A 업체 기준
+
+select *
+--delete
+from TABLE_COLC
+order by std_date;
+
+--A업체 기준
 MERGE INTO TABLE_COLC C
 USING TABLE_DATA_1 D
-ON (c.std_date = d.create_date)
-WHEN MATCHED THEN --일치하면 업데이트
-    UPDATE SET check_data1 = 'Y'
-WHEN NOT MATCHED THEN -- 일치하는게 없으면 추가
-        INSERT VALUES (d.create_date, 'Y', 'N');
-        
-        
--- B업체 기준
+ON (c.std_date = d.create_date)  --2023-04-01
+WHEN MATCHED THEN  --일치하면 업데이트
+    UPDATE SET C.check_data1 = 'Y'
+WHEN NOT MATCHED THEN  --일치하는게 없으면 추가
+    INSERT VALUES (d.create_date, 'Y', 'N');
+
+--B업체 기준
 MERGE INTO TABLE_COLC C
 USING TABLE_DATA_2 D
-ON (c.std_date = d.create_date)
-WHEN MATCHED THEN --일치하면 업데이트
-    UPDATE SET check_data2 = 'Y'
-WHEN NOT MATCHED THEN -- 일치하는게 없으면 추가
-        INSERT VALUES (d.create_date, 'N', 'Y');
-        
-        
+ON (c.std_date = d.create_date)  --2023-04-01
+WHEN MATCHED THEN  --일치하면 업데이트
+    UPDATE SET C.check_data2 = 'Y'
+WHEN NOT MATCHED THEN  --일치하는게 없으면 추가
+    INSERT VALUES (d.create_date, 'N', 'Y');
